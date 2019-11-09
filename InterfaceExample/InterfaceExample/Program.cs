@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace InterfaceExample
 {
@@ -32,6 +34,38 @@ namespace InterfaceExample
             
             Array.Sort(mooseTab);
             DisplayMooseTab(mooseTab);
+
+            
+            XmlSerializer serializer = new XmlSerializer(typeof(Moose[]));
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(@"./mooses.xml"))
+                {
+                    serializer.Serialize(writer, mooseTab);
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            
+            Moose[] newMooseTab = new Moose[3];
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(@"./mooses.xml"))
+                {
+                    newMooseTab = (Moose[]) serializer.Deserialize(reader);
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            
+            DisplayMooseTab(newMooseTab);
+            
         }
 
         private static void DisplayMooseTab(Moose[] tab)
