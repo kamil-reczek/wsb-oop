@@ -49,6 +49,7 @@ namespace ContactManager
                 Person person = new Person();
                 person.SetData(firstName, lastName, address);
                 _contacts.Add(person);
+                Helper.SortList(_contacts);
             }
             
             Console.WriteLine($"Number of read contacts: {_numberOfContacts}");

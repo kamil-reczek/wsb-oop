@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ContactManager
 {
@@ -24,6 +25,21 @@ namespace ContactManager
             Console.WriteLine($"[1] Display all contacts");
             Console.WriteLine($"[2] View contact details");
             Console.WriteLine($"[3] Exit");
+        }
+
+        public static void SortList(List<Person> list)
+        {
+            for (int i = 1; i < list.Count; i++)
+            {
+                int j = i;
+                Person temp = list[j];
+                while ((j > 0) && list[j - 1].CompareTo(temp) > 0)
+                {
+                    list[j] = list[j - 1];
+                    j--;
+                }
+                list[j] = temp;
+            }
         }
     }
 }

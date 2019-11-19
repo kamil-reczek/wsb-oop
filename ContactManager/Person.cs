@@ -1,6 +1,8 @@
+using System;
+
 namespace ContactManager
 {
-    public class Person
+    public class Person : IComparable<Person>
     {
         private string _firstName;
         private string _lastName;
@@ -27,6 +29,14 @@ namespace ContactManager
         public string GetPersonDetails()
         {
             return $"My name is {_firstName} {_lastName} \n Address: \n {_address}";
+        }
+
+        public int CompareTo(Person other)
+        {
+            int result = LastName.CompareTo(other.LastName);
+            if (result == 0)
+                result = FirstName.CompareTo(other.FirstName);
+            return result;
         }
     }
 }
